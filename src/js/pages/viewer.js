@@ -60,13 +60,9 @@ export default function Viewer(props) {
         setUiShowContentMetadata(Metadata.get(image.filename));
 
         setTimeout(() => {
-            const ele = document.querySelector('#file-image');
-
-            if (ele) {
-                panzoom(document.querySelector('#file-image'), {
-                    smoothScroll: false
-                });
-            }
+            panzoom(document.querySelector('#file-panzoom'), {
+                smoothScroll: false
+            });
         }, 100);
     }
 
@@ -378,7 +374,12 @@ export default function Viewer(props) {
             </div>
 
             <div className="cat-actions">
-                <button typeof="button" className={uiMultiSelect ? 'btn btn-primary' : 'btn'} onClick={enableMultiSelect}>Multi-Select</button>
+                {
+                    category && <span>
+                        <button typeof="button" className={uiMultiSelect ? 'btn btn-primary' : 'btn'} onClick={enableMultiSelect}>Multi-Select</button>
+                    </span>
+                }
+
                 {
                     multi.length > 0 && <span>
                         &nbsp;&nbsp;&nbsp;
@@ -405,7 +406,9 @@ export default function Viewer(props) {
                                 />
                             </div>
                         </div>
-
+                        <strong>
+                            Files will be MOVED from their selected location.
+                        </strong>
                         <br/>
                         <small>
                             Press [ESC] key to close.
@@ -446,29 +449,30 @@ export default function Viewer(props) {
                             </div>
                         </div>
                         <div>
-                            {
-                                uiShowContentMetadata.type === 'image' && <div>
-                                    <img id="file-image"
-                                         alt={uiShowContent.filename}
-                                         src={uiShowContent.filename_path}
-                                    />
-                                </div>
-                            }
-                            {
-                                uiShowContentMetadata.type === 'video' && <div className="file-viewer-video">
-                                    <video src={uiShowContent.filename_path} controls></video>
-                                </div>
-                            }
-                            {
-                                uiShowContentMetadata.type === 'sound' && <div className="file-viewer-sound">
-                                    <audio src={uiShowContent.filename_path} controls></audio>
-                                </div>
-                            }
-                            {
-                                uiShowContentMetadata.type === 'document' && <div className="file-viewer-sound">
-                                    A document
-                                </div>
-                            }
+                            <div id="file-panzoom">
+                                {
+                                    uiShowContentMetadata.type === 'image' && <div>
+                                        <img alt={uiShowContentMetadata.original}
+                                             src={uiShowContent.filename_path}
+                                        />
+                                    </div>
+                                }
+                                {
+                                    uiShowContentMetadata.type === 'video' && <div className="file-viewer-video">
+                                        <video src={uiShowContent.filename_path} controls></video>
+                                    </div>
+                                }
+                                {
+                                    uiShowContentMetadata.type === 'sound' && <div className="file-viewer-sound">
+                                        <audio src={uiShowContent.filename_path} controls></audio>
+                                    </div>
+                                }
+                                {
+                                    uiShowContentMetadata.type === 'document' && <div className="file-viewer-sound">
+                                        A document
+                                    </div>
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -479,10 +483,34 @@ export default function Viewer(props) {
                     <div className="file-multi">
                         <div className="file-multi-grid" id="file-multi-grid">
                         {
-                            multi.map((image, index) => {
+                            multi.map((item, index) => {
+                                const meta = Metadata.get(item.filename);
+
+                                let output = '';
+
+                                console.log(meta);
+
+                                if (meta.type === 'video') {
+                                    output = <video src={item.filename_path} controls></video>
+                                }
+
+                                if (meta.type === 'sound') {
+                                    output = <audio src={item.filename_path} controls></audio>
+                                }
+
+                                if (meta.type === 'item') {
+                                    output = <div>
+                                        Document: {meta.original}
+                                    </div>
+                                }
+
+                                if (meta.type === 'image') {
+                                    output = <img alt={meta.original} src={item.filename_path} />
+                                }
+
                                 return (
                                     <div key={index} className="file-multi-grid-item">
-                                        <img src={image.filename_path} />
+                                        {output}
                                     </div>
                                 );
                             })
@@ -503,6 +531,7 @@ export default function Viewer(props) {
 
                         // on click handle for multi-select
                         const func = () => {
+                            // add to multi-select
                             if (uiMultiSelect && isSelected === false) {
                                 multi.push(item);
 
@@ -514,9 +543,15 @@ export default function Viewer(props) {
                                 return;
                             }
 
+                            // remove from multi-select
                             if (uiMultiSelect && isSelected === true) {
+                                multi.splice(multi.indexOf(item), 1);
 
+                                // add multi-select
+                                setMulti(multi);
 
+                                // todo - find a better way to do this, it forces re-render
+                                setTrigger(Date.now());
                                 return;
                             }
 
