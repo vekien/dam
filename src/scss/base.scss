@@ -1,0 +1,82 @@
+html {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    color: var(--white);
+    background-color: var(--black);
+}
+
+body {
+    margin: 0;
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+
+    &:hover {
+        color: var(--blue-light);
+    }
+}
+
+p {
+    margin: 0 0 15px 0;
+}
+
+hr {
+    border: none;
+    background-color: #444;
+    height: 1px;
+    margin: 20px 10px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0 0 20px 0;
+    font-weight: 300;
+
+    &.sub-title {
+        font-weight: 600;
+        color: var(--teal);
+    }
+}
+
+small {
+    font-weight: 400;
+    display: block;
+    font-size: 13px;
+    opacity: 0.3;
+}
+
+table {
+    width: 100%;
+    border: solid 1px var(--gray-dark);
+    border-radius: 3px;
+    overflow: hidden;
+
+    border-spacing: 0;
+    border-collapse: separate;
+
+    th {
+        background-color: var(--gray-dark);
+        margin: 0;
+        padding: 10px;
+        text-align: left;
+    }
+
+    tr:not(:last-of-type) {
+        border-bottom: solid 1px var(--gray-dark);
+    }
+
+    tr td {
+        border-right: solid 1px var(--gray-dark);
+        margin: 0;
+        padding: 10px;
+
+        h1,h2,h3,h4,h5,h6 {
+            margin: 0;
+        }
+    }
+
+    tr:nth-child(odd) td {
+        background-color: var(--gray-darker);
+    }
+}

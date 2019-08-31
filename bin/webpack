@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# Prod Mode
+if [ $1 == "prod" ]; then
+    yarn build
+fi
+
+# Dev mode
+if [ $1 == "dev" ]; then
+    yarn build-dev --watch
+fi
+

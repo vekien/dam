@@ -1,24 +1,16 @@
-## Viewing
-
-Run `public/index.html` anyway you like. 
-I use `http-server` : https://www.npmjs.com/package/http-server
-
 ## Deving
 
 - clone repo
 - run `yarn`
 - Dev: `bash bin/webpack dev`
 - Prod: `bash bin/webpack prod`
-
-Run 
-
+- Electron: `bash bin/electron`
 
 ## Source files
 
 - Styles: `src/css/**.scss`
 - Javascript: `src/js/**.js`
 - HTML: `public/index.html`
-
 
 ## Compiling the JS and SCSS
 
@@ -27,6 +19,8 @@ Make sure your IDE is set to: EMCAScript 6
 (If you need SASS installed: `yarn add sass-loader node-sass --dev`)
 
 - `yarn build` or `yarn build-dev` or `yarn build-dev --watch`
+
+> Note: Always add packages with yarn, do not use NPM!!
 
 ## Compile
 

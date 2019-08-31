@@ -1,0 +1,73 @@
+.btn {
+    font-size: 15px;
+    padding: 8px 12px;
+    color: var(--white);
+    background-color: var(--gray-dark);
+    box-shadow: 0 1px 2px #111;
+    border-radius: 2px;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.btn-success {
+    @extend .btn;
+    background-color: var(--green);
+}
+
+.btn-danger {
+    @extend .btn;
+    background-color: var(--red);
+}
+
+.btn-primary {
+    @extend .btn;
+    background-color: var(--blue);
+}
+
+.form {
+
+}
+
+.form-categories {
+    border: solid 1px var(--gray-dark);
+    padding: 20px;
+    border-radius: 3px;
+}
+
+.form-row {
+    padding: 0 0 15px 0;
+
+    label {
+        display: block;
+        padding: 0 0 8px 0;
+        color: var(--info);
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    small {
+        padding: 5px 0;
+    }
+
+    input, textarea {
+        border: none;
+        background-color: var(--white);
+        border-radius: 2px;
+        display: block;
+        font-size: 17px;
+        padding: 8px 12px;
+        width: 100%;
+        transition: 100ms;
+        outline: none;
+
+        &.clickable {
+            cursor: pointer;
+
+            &:hover {
+                box-shadow: inset 0 0 0 1px #000,
+                            0 0 0 2px var(--primary);
+            }
+        }
+    }
+}

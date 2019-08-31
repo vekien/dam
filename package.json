@@ -1,0 +1,52 @@
+{
+    "name": "GameAssetManager",
+    "description": "Asset manager, pictures, videos, etc.",
+    "author": "Josh Freeman <josh@viion.co.uk>",
+    "version": "0.1.1",
+    "license": "MIT",
+    "main": "main.js",
+    "build": {
+        "appId": "game.asset.manager",
+        "win": {
+            "icon": "build/logo.ico"
+        },
+        "mac": {
+            "category": "software"
+        }
+    },
+    "devDependencies": {
+        "@babel/preset-react": "^7.0.0",
+        "@symfony/webpack-encore": "^0.27.0",
+        "concurrently": "^4.1.0",
+        "electron": "^5.0.1",
+        "electron-builder": "^20.38.4",
+        "electron-packager": "^13.0.1",
+        "node-sass": "^4.12.0",
+        "sass-loader": "7.0.1"
+    },
+    "dependencies": {
+        "hasha": "^5.0.0",
+        "imageinfo": "^1.0.4",
+        "moment": "^2.22.2",
+        "panzoom": "^8.1.2",
+        "prop-types": "^15.7.2",
+        "react": "^16.8.6",
+        "react-dom": "^16.8.6",
+        "react-router-dom": "^5.0.1",
+        "sha1-file": "^1.0.0",
+        "uuid": "^3.3.2"
+    },
+    "scripts": {
+        "watch": "encore dev --watch",
+        "electron-dev": "electron . --dev",
+        "start": "concurrently -k -c \"green,blue\" \"yarn:watch\" \"yarn:electron-dev\"",
+        "prestart-prod": "encore prod",
+        "start-prod": "electron . --dev",
+        "build-dev": "encore dev",
+        "build": "encore prod",
+        "prepack": "yarn run build",
+        "pack": "electron-builder --dir",
+        "predist": "yarn run build",
+        "dist": "electron-builder"
+    }
+}
