@@ -185,7 +185,7 @@ export default function Viewer(props) {
      * Handle recursive file copy
      */
     function handleFileCopyRecursive(file, callback) {
-        let filename = file.replace(/^.*[\\\/]/, '');
+        let filename = file.replace(/^.*[\\\/]/, '').toLowerCase();
 
         // grab file extension
         let ext = filename.split('.');
@@ -334,9 +334,11 @@ export default function Viewer(props) {
         Storage.deleteFile(uiShowContent.filename_path);
         Storage.deleteFile(uiShowContent.filename_thumb);
 
-        // reload the category
-        reset();
-        loadCategoryContent(category);
+        setTimeout(() => {
+            // reload the category
+            reset();
+            loadCategoryContent(category);
+        }, 500);
     }
 
     escapeKeyPress();
@@ -407,7 +409,7 @@ export default function Viewer(props) {
                             </div>
                         </div>
                         <strong>
-                            Files will be MOVED from their selected location.
+                            Files will be COPIED from their selected location.
                         </strong>
                         <br/>
                         <small>
