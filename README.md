@@ -31,3 +31,11 @@ This will build the installer to: `/dist/xx <version>.exe` which you can share a
 ## Dev Tools
 
 Open with `CTRL+Shift+I`
+
+## Screenshots
+
+![Screenshot1](github/screenshot1.png)
+
+![Screenshot2](github/screenshot2.png)
+
+![Screenshot3](github/screenshot3.png)
