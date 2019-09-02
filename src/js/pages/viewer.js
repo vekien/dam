@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Storage from '../utility/storage';
 import Metadata from '../utility/metadata';
 import Cats from '../utility/categories';
+import Tags from '../utility/tags';
 
 const {dialog, nativeImage} = require('electron').remote;
 const Buffer = require('buffer').Buffer;
@@ -20,6 +21,7 @@ export default function Viewer(props) {
     const [uiImageData, setUiImageData] = useState(false);
     const [uiMultiSelect, setUiMultiSelect] = useState(false);
     const [uiMultiSelectShow, setUiMultiSelectShow] = useState(false);
+    const [uiTags, setUiTags] = useState([]);
 
     useEffect(() => {
         // Load Category
@@ -50,6 +52,7 @@ export default function Viewer(props) {
         setUiMultiSelect(false);
         setUiMultiSelectShow(false);
         setMulti([])
+        setUiTags([]);
     }
 
     /**
@@ -58,6 +61,7 @@ export default function Viewer(props) {
     function showContent(image) {
         setUiShowContent(image);
         setUiShowContentMetadata(Metadata.get(image.filename));
+        loadTags(image.filename);
 
         setTimeout(() => {
             panzoom(document.querySelector('#file-panzoom'), {
@@ -341,6 +345,26 @@ export default function Viewer(props) {
         }, 500);
     }
 
+    /**
+     * Add a new tag
+     */
+    function addTag(event) {
+        event.preventDefault();
+
+        // grab tag
+        const tag = document.getElementById('tag_name').value.trim().toLowerCase();
+        document.getElementById('tag_name').value = '';
+
+        // save tag and reload them for this filename
+        Tags.add(tag, uiShowContent.filename);
+        loadTags(uiShowContent.filename);
+    }
+
+    function loadTags(filename) {
+        const tags = Tags.find(filename);
+        setUiTags(tags);
+    }
+
     escapeKeyPress();
 
     return (
@@ -439,8 +463,19 @@ export default function Viewer(props) {
 
                                 <hr/>
 
-                                <h3>TAGS</h3>
-                                <p>Add a tag</p>
+                                <form method="post" onSubmit={addTag}>
+                                    <div className="form-row">
+                                        <input type="text" id="tag_name" placeholder="Add Tag" />
+                                    </div>
+                                </form>
+
+                                {
+                                    uiTags.map((tag, index) => {
+                                        return <div className="tag" key={index}>
+                                            {tag}
+                                        </div>
+                                    })
+                                }
 
                                 <hr/>
 
