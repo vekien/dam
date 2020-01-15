@@ -3,6 +3,8 @@ import Cats from '../utility/categories';
 import Config from '../utility/config';
 import moment from "moment";
 
+const {shell} = require('electron');
+
 export default function CategoryManager(props) {
     const [categories, setCategories] = useState([]);
     const [newCatName, setNewCatName] = useState('');
@@ -24,6 +26,16 @@ export default function CategoryManager(props) {
         // todo -- finish this
         alert("not yet implemented");
         setDeleteCategory(false);
+    }
+
+    function updateCategoryName(id, name) {
+        Cats.rename(id, name);
+        props.updateCategories();
+    }
+
+    function openCategoryFolder(category) {
+        const folder = savePath + "\\" + category.id;
+        shell.openItem(folder);
     }
 
     useEffect(() => {
@@ -79,10 +91,10 @@ export default function CategoryManager(props) {
                 <thead>
                     <tr>
                         <th width="2%"></th>
-                        <th width="65%">Name</th>
+                        <th width="55%">Name</th>
                         <th width="10%">Files</th>
                         <th>Created</th>
-                        <th width="2%">Actions</th>
+                        <th width="12%">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -101,13 +113,20 @@ export default function CategoryManager(props) {
                                 <tr key={i}>
                                     <td className="tac">{i+1}</td>
                                     <td>
-                                        <h3>{cat.name}</h3>
-                                        <small>Folder: {savePath}\{cat.id}</small>
+                                        <div className="form-row" style={{padding: 0}}>
+                                            <input type="text" id="update-cat" defaultValue={cat.name} onChange={event => { updateCategoryName(cat.id, event.target.value) }}/>
+                                        </div>
                                     </td>
                                     <td className="tac">{cat.fileCount}</td>
                                     <td className="tar">{createdTime}</td>
                                     <td className="tar">
-                                        <button className="btn-danger" onClick={() => { setDeleteCategory(cat) }}>Delete</button>
+                                        <button className="btn-primary" onClick={() => { openCategoryFolder(cat) }}>
+                                            <i className="fad fa-folders"></i>
+                                        </button>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <button className="btn-danger" onClick={() => { setDeleteCategory(cat) }}>
+                                            <i className="fad fa-dumpster"></i>
+                                        </button>
                                     </td>
                                 </tr>
                             )
@@ -115,9 +134,6 @@ export default function CategoryManager(props) {
                     }
                 </tbody>
             </table>
-
-
-
         </div>
     )
 }

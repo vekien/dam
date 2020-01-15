@@ -63,7 +63,36 @@ class Categories {
         // load our current category list
         this.categories = Storage.load(this.saveFolder, this.saveFilename);
         this.categories = this.categories === null ? [] : JSON.parse(this.categories);
+
         return this;
+    }
+
+    /**
+     * Rename a specific category
+     */
+    rename(id, name) {
+        const category = this.findCategoryById(id);
+
+        if (category === false) {
+            return null;
+        }
+
+        category.name = name;
+        this.update(category);
+        this.save();
+    }
+
+    findCategoryById(id) {
+        // find category
+        for (let i in this.categories) {
+            const cat = this.categories[i];
+
+            if (cat.id === id) {
+                return cat;
+            }
+        }
+
+        return false;
     }
 }
 

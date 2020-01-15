@@ -605,8 +605,8 @@ export default function Viewer(props) {
                         }
 
                         // set styles
-                        const styles = {
-                            backgroundImage: `url(${item.filename_thumb})`
+                        let styles = {
+                            backgroundImage: `url(file://${item.filename_thumb})`,
                         };
 
                         return (

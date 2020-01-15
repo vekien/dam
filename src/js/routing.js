@@ -18,7 +18,7 @@ export default function Routing() {
     }
 
     useEffect(() => {
-        setCategories(Cats.get());
+        updateCategories();
     });
 
     return (
@@ -42,7 +42,8 @@ export default function Routing() {
 
                                 return (
                                     <NavLink key={i} to={url} activeClassName="nav-link-active">
-                                        <i className="fal fa-hashtag"></i> {cat.name}
+                                        <i className="fal fa-hashtag"></i>
+                                        <span className="cat-name">{cat.name}</span>
                                         <span className="cat-label">{cat.fileCount}</span>
                                     </NavLink>
                                 )

@@ -71,9 +71,11 @@
             color: var(--light);
             display: block;
             padding: 8px 12px;
+            border-radius: 5px;
 
             &:hover {
-                color: var(--blue);
+                background-color: var(--blue);
+                color: var(--white);
             }
 
             &.nav-link-active {
@@ -83,7 +85,8 @@
 
         i {
             display: inline-block;
-            margin-right: 10px;
+            margin: 4px 15px 0 0;
+            vertical-align: top;
         }
     }
 
@@ -257,13 +260,18 @@
         opacity: 0.3;
     }
 
+    .cat-name {
+        width: 200px;
+        display: inline-block;
+    }
+
     .cat-label {
         float: right;
         display: inline-block;
-        background-color: var(--gray-dark);
         padding: 1px 4px;
         border-radius: 5px;
-        font-size: 13px;
+        font-size: 12px;
+        font-weight: bold;
     }
 }
 
