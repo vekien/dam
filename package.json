@@ -21,7 +21,7 @@
         "electron": "^5.0.1",
         "electron-builder": "^20.38.4",
         "electron-packager": "^13.0.1",
-        "node-sass": "^4.12.0",
+        "node-sass": "^7.0.0",
         "sass-loader": "7.0.1"
     },
     "dependencies": {
