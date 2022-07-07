@@ -27,7 +27,7 @@
     "dependencies": {
         "hasha": "^5.0.0",
         "imageinfo": "^1.0.4",
-        "moment": "^2.22.2",
+        "moment": "^2.29.4",
         "panzoom": "^8.1.2",
         "prop-types": "^15.7.2",
         "react": "^16.8.6",
